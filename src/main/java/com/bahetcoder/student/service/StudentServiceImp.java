@@ -8,11 +8,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 学生信息实现类Service
+ */
 @Service
 public class StudentServiceImp implements StudentService{
     @Autowired
     StudentDao studentDao;
-
     /**
      * 查询学生所有的信息
      * @param map
