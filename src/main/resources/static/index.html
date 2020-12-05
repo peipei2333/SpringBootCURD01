@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>增删改查首页</title>
+    <link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>SpringBoot增删改查学习</h1><hr>
+        <a href="add.html" class="btn btn-primary">新增</a>
+        <table class="table table-hover">
+                <tr>
+                    <th>ID</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>年龄</th>
+                    <th>创建时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            <tbody id="resdata">
+<!--                <tr>-->
+<!--                    <td>1</td>-->
+<!--                    <td>admin</td>-->
+<!--                    <td>男</td>-->
+<!--                    <td>26</td>-->
+<!--                    <td>2020-12-3 12：00：00</td>-->
+<!--                    <td>正常</td>-->
+<!--                    <td>-->
+<!--                        <a href="#" class="btn btn-success">修改</a>-->
+<!--                        <a href="#" class="btn btn-danger">删除</a>-->
+<!--                    </td>-->
+<!--                </tr>-->
+            </tbody>
+        </table>
+    </div>
+</body>
+<script type="text/javascript">
+    $(function () {
+        //查询所有的数据
+        var html;
+        $.post({
+            url:'student/selectAll',
+            success:function (data) {
+                for (var i=0;i<data.length;i++){
+                    html+='<tr>';
+                    html+='<td>'+data[i].sid+'</td>';
+                    html+='<td>'+data[i].sname+'</td>';
+                    html+='<td>'+data[i].sage+'</td>';
+                    html+='<td>'+data[i].ssex+'</td>';
+                    html+='<td>'+data[i].createtime+'</td>';
+                    html+='<td>'+data[i].state+'</td>';
+                    html+='<td> <a href="edit.html?sid='+data[i].sid+'" class="btn btn-success">修改</a>&nbsp;';
+                    html+='<a href="student/deleteBySid/?sid='+data[i].sid+'" class="btn btn-danger">删除</a></td>';
+                    html+='</tr>';
+                }
+                $("#resdata").html(html)
+            }
+        });
+    })
+</script>
+</html>

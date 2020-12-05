@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加数据</title>
+    <link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>新增学生信息</h1>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label>姓名</label>
+            <input type="text" class="form-control" id="sname" placeholder="请输入姓名">
+        </div>
+        <div class="form-group">
+            <label>年龄</label>
+            <input type="number" class="form-control" id="sage" placeholder="请输入年龄">
+        </div>
+        <div class="form-group">
+            <label>性别</label>
+            <select class="form-control" id="ssex">
+                <option value="男">男</option>
+                <option value="女">女</option>
+            </select>
+        </div>
+        <b  id="sub" class="btn btn-success">保存</b>&nbsp;
+        <b type="reset" class="btn btn-primary">重置</b>
+</form>
+</div>
+</body>
+<script type="text/javascript">
+    $("#sub").click(function () {
+        var sname = $("#sname").val();
+        var sage = $("#sage").val();
+        var ssex = $("#ssex").val();
+        if (sname == ""){
+            alert("学生姓名不能为空！");
+            return
+        }
+        if (sage == ""){
+            alert("学生年龄不能为空！");
+            return
+        }
+        if (ssex == ""){
+            alert("学生性别不能为空！");
+            return
+        }
+        // 封装数据并且提交至后台保存
+        var student = {
+            "sname":sname,
+            "sage":sage,
+            "ssex":ssex
+        }
+        //将封装的数据转换为JSON格式
+        var studentjson = JSON.stringify(student);
+        // 提交到后端接口
+        $.post({
+            url:'student/saveStudent',
+            data:studentjson,
+            contentType:'application/json',
+            success:function (data) {
+                alert(data);
+                window.location.replace("index.html");
+            }
+
+        })
+    })
+</script>
+</html>

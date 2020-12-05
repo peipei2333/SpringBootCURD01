@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bahetcoder.student.dao.StudentDao">
+<!--查询学生所有的信息-->
+    <select id="selectAll" resultType="com.bahetcoder.student.entity.StudentEntity" parameterType="java.util.Map">
+        select * from student
+    </select>
+<!--根据sid删除学生所有的信息-->
+    <delete id="deleteBySid" parameterType="java.lang.Integer">
+        delete from student where sid = ${sid}
+    </delete>
+<!-- 新增学生信息 -->
+    <insert id="saveStudent" parameterType="com.bahetcoder.student.entity.StudentEntity">
+        INSERT INTO student (
+            sid,
+            sname,
+            sage,
+            ssex,
+            createtime,
+            state
+        )
+        VALUES
+        (
+            NULL,
+            #{sname},
+            #{sage},
+            #{ssex},
+            #{createtime},
+            #{state}
+        )
+    </insert>
+<!--根据sid查询学生所有的信息-->
+    <select id="selectBySid" resultType="com.bahetcoder.student.entity.StudentEntity" parameterType="java.lang.Integer">
+        select * from student where sid = ${sid}
+    </select>
+<!--根据sid修改学生信息-->
+    <update id="updateStudentBySid" parameterType="com.bahetcoder.student.entity.StudentEntity">
+        UPDATE student
+        SET sname = #{sname},
+            sage = #{sage},
+            ssex = #{ssex}
+        WHERE
+            sid = ${sid}
+    </update>
+</mapper>
