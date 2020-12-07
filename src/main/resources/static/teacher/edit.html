@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改数据</title>
+    <link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet">
+    <link href="/css/bootstrap-mycss.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" style="background: #0070c0 !important">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="mynavitem navbar-brand " href="#">学生成绩管理系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a class="active-color" href="/">首页</a></li>
+                <li><a class="active-color" href="/student/index.html">学生信息</a></li>
+                <li class="active"><a class="mynavitem" href="/teacher/index.html">教师管理</a></li>
+                <li><a class="mynavitem" href="/score/index.html">成绩管理</a></li>
+                <li><a class="mynavitem" href="/statistics/index.html">统计</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container" style="margin-top: 55px;">
+    <h1>修改教师信息</h1>
+    <form class="form-horizontal">
+        <input type="hidden" id="tid">
+        <div class="form-group">
+            <label>姓名</label>
+            <input type="text" class="form-control" id="tname" placeholder="请输入姓名">
+        </div>
+        <b  id="sub" class="btn btn-success">保存</b>&nbsp;
+</form>
+</div>
+</body>
+<script type="text/javascript">
+    $(function () {
+        var tid = getQuaryString("tid");
+        $.post({
+            url:'selectByTid?tid='+tid,
+            success:function (data) {
+                $("#tid").val(tid);
+                $("#tname").val(data.tname);
+            }
+
+        })
+    })
+    function getQuaryString(param){
+        var reg = new RegExp("(^|&)"+param+"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r!=null)return unescape(r[2]); return  null;
+    }
+    $("#sub").click(function () {
+        var tid = $("#tid").val();
+        var tname = $("#tname").val();
+        if (tname == ""){
+            alert("教师姓名不能为空！");
+            return
+        }
+        // 封装数据并且提交至后台保存
+        var teacher = {
+            "tid":tid,
+            "tname":tname,
+        }
+        //将封装的数据转换为JSON格式
+        var teacherjson = JSON.stringify(teacher);
+        // 提交到后端接口
+        $.post({
+            url:'updateTeacherByTid',
+            data:teacherjson,
+            contentType:'application/json',
+            success:function (data) {
+                alert(data);
+                window.location.replace("index.html");
+            }
+        })
+    })
+</script>
+</html>

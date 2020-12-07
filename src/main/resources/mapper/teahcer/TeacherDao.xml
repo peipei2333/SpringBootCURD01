@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bahetcoder.teacher.dao.TeacherDao">
+    <!--查询教师所有的信息-->
+    <select id="selectAll" parameterType="com.bahetcoder.teacher.entity.TeacherEntity" resultType="com.bahetcoder.teacher.entity.TeacherEntity">
+        select * from teacher
+    </select>
+<!--根据tid删除教师信息-->
+    <delete id="deleteByTid" parameterType="java.lang.Integer">
+        delete from teacher where tid = ${tid}
+    </delete>
+<!--新增教师信息-->
+    <insert id="saveTeacher" parameterType="com.bahetcoder.teacher.entity.TeacherEntity">
+        insert into teacher(
+            tid, tname, createtime, state
+        )
+            VALUE
+        (
+            null,
+            #{tname},
+            #{createtime},
+            #{state}
+        )
+    </insert>
+<!-- 根据tid查询教师信息-->
+    <select id="selectByTid" parameterType="java.lang.Integer" resultType="com.bahetcoder.teacher.entity.TeacherEntity">
+        select * from teacher where tid = ${tid}
+    </select>
+<!--更新教师信息-->
+    <update id="updateTeacher" parameterType="com.bahetcoder.teacher.entity.TeacherEntity">
+        UPDATE teacher
+        SET tname = #{tname}
+        WHERE
+            tid = ${tid}
+    </update>
+</mapper>

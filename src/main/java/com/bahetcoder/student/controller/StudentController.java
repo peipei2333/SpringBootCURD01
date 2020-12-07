@@ -41,7 +41,7 @@ public class StudentController {
             Integer res = studentService.deleteBySid(sid);
             System.out.println(res);
             if (res>0){
-                return "redirect:/index.html";
+                return "redirect:/student/index.html";
             }else {
                 return "删除失败！";
             }
@@ -59,7 +59,7 @@ public class StudentController {
     @ResponseBody
     public String saveStudent(@RequestBody StudentEntity studentEntity){
         studentService.saveStudent(studentEntity);
-        return "保存成功";
+        return "新增成功！";
     }
 
     /**
@@ -80,7 +80,7 @@ public class StudentController {
      */
     @RequestMapping(value = "/updateStudentBySid")
     @ResponseBody
-    public String updateStudentBySiD(@RequestBody StudentEntity studentEntity){
+    public String updateStudentBySid(@RequestBody StudentEntity studentEntity){
         studentService.updateStudentBySid(studentEntity);
         return "修改成功！";
     }
