@@ -17,10 +17,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a class="active-color" href="/">首页</a></li>
-                <li><a class="active-color" href="/student/index.html">学生信息</a></li>
-                <li class="active"><a class="mynavitem" href="/teacher/index.html">教师管理</a></li>
-                <li><a class="mynavitem" href="/course/index.html">课程管理</a></li>
+                <li><a class="mynavitem" href="/">首页</a></li>
+                <li><a class="mynavitem" href="/student/index.html">学生信息</a></li>
+                <li><a class="mynavitem" href="/teacher/index.html">教师管理</a></li>
+                <li class="active"><a class="active-color" href="/course/index.html">课程管理</a></li>
                 <li><a class="mynavitem" href="/score/index.html">成绩管理</a></li>
                 <li><a class="mynavitem" href="/statistics/index.html">统计</a></li>
             </ul>
@@ -28,12 +28,17 @@
     </div>
 </nav>
 <div class="container" style="margin-top: 55px;">
-    <h1>修改教师信息</h1>
+    <h1>修改学生信息</h1>
     <form class="form-horizontal">
-        <input type="hidden" id="tid">
+        <input type="hidden" id="cid">
         <div class="form-group">
-            <label>姓名</label>
-            <input type="text" class="form-control" id="tname" placeholder="请输入姓名">
+            <label>课程名称</label>
+            <input type="text" class="form-control" id="cname" placeholder="请输入课程名称">
+        </div>
+        <div class="form-group">
+            <label>教师</label>
+            <select class="form-control" id="tid">
+            </select>
         </div>
         <b  id="sub" class="btn btn-success">保存</b>&nbsp;
 </form>
@@ -41,14 +46,27 @@
 </body>
 <script type="text/javascript">
     $(function () {
-        var tid = getQuaryString("tid");
+        var cid = getQuaryString("cid");
         $.post({
-            url:'selectByTid?tid='+tid,
+            url:'selectByCid?cid='+cid,
             success:function (data) {
+                $("#cid").val(cid);
                 $("#tid").val(tid);
-                $("#tname").val(data.tname);
+                $("#cname").val(data.cname);
             }
 
+        })
+        $.post({
+            url:'/teacher/selectAll',
+            success:function (data) {
+                var options = [];
+                options.push("<option value=''>请选择</option>");
+                for (var i = 0; i < data.length; i++) {
+                    options.push("<option value='" + data[i].tid + "'>"
+                        + data[i].tname + "</option>");
+                }
+                $("#tid").html(options.join(""));
+            }
         })
     })
     function getQuaryString(param){
@@ -57,23 +75,26 @@
         if (r!=null)return unescape(r[2]); return  null;
     }
     $("#sub").click(function () {
+        var cid = $("#cid").val();
         var tid = $("#tid").val();
-        var tname = $("#tname").val();
-        if (tname == ""){
-            alert("教师姓名不能为空！");
+        var cname = $("#cname").val();
+        if (cname == ""){
+            alert("课程不能为空！");
             return
         }
         // 封装数据并且提交至后台保存
-        var teacher = {
+        var course = {
             "tid":tid,
-            "tname":tname,
+            "cid":cid,
+            "cname":cname
         }
         //将封装的数据转换为JSON格式
-        var teacherjson = JSON.stringify(teacher);
+        var coursejson = JSON.stringify(course);
+        console.log((course));
         // 提交到后端接口
         $.post({
-            url:'updateTeacherByTid',
-            data:teacherjson,
+            url:'updateCourseByCid',
+            data:coursejson,
             contentType:'application/json',
             success:function (data) {
                 alert(data);

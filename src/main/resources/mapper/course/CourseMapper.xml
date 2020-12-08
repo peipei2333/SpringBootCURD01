@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bahetcoder.course.dao.CourseDao">
+    <!--查询课程所有的信息-->
+    <select id="selectAll" resultType="com.bahetcoder.course.entity.CourseEntity" parameterType="java.util.Map">
+        select * from course
+    </select>
+    <!--根据cid删除课程所有的信息-->
+    <delete id="deleteByCid" parameterType="java.lang.Integer">
+        delete from course where cid = ${cid}
+    </delete>
+    <!-- 新增课程信息 -->
+    <insert id="saveCourse" parameterType="com.bahetcoder.course.entity.CourseEntity">
+        INSERT INTO course (
+            cid,
+            cname,
+            tid,
+            createtime,
+            state
+        )
+        VALUES
+        (
+            NULL,
+            #{cname},
+            #{tid},
+            #{createtime},
+            #{state}
+        )
+    </insert>
+    <!--根据cid查询课程所有的信息-->
+    <select id="selectByCid" resultType="com.bahetcoder.course.entity.CourseEntity" parameterType="java.lang.Integer">
+        select * from course where cid = ${cid}
+    </select>
+    <!--根据cid修改课程信息-->
+    <update id="updateCourseByCid" parameterType="com.bahetcoder.course.entity.CourseEntity">
+        UPDATE course
+        SET cname = #{cname},
+            tid = #{tid}
+        WHERE
+            cid = ${cid}
+    </update>
+
+</mapper>
