@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>增删改查首页</title>
+    <link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet">
+    <link href="/css/bootstrap-mycss.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" style="background: #0070c0 !important">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="mynavitem navbar-brand " href="#">学生成绩管理系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a class="mynavitem" href="/">首页</a></li>
+                <li><a class="mynavitem" href="/student/index.html">学生信息</a></li>
+                <li><a class="mynavitem" href="/teacher/index.html">教师管理</a></li>
+                <li><a class="mynavitem"  href="/course/index.html">课程管理</a></li>
+                <li class="active"><a class="active-color" href="/score/index.html">成绩管理</a></li>
+                <li><a class="mynavitem" href="/statistics/index.html">统计</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container" style="margin-top: 55px;">
+        <h2>SpringBoot增删改查学习--成绩信息管理</h2><hr>
+        <a href="add.html" class="btn btn-primary">新增</a>
+        <table class="table table-hover">
+                <tr>
+                    <th>ID</th>
+                    <th>学生ID</th>
+                    <th>课程ID</th>
+                    <th>分数</th>
+                    <th>创建时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            <tbody id="resdata">
+            </tbody>
+        </table>
+    </div>
+</body>
+<script type="text/javascript">
+    $(function () {
+        //查询所有的数据
+        var html;
+        $.post({
+            url:'selectAll',
+            success:function (data) {
+                for (var i=0;i<data.length;i++){
+                    html+='<tr>';
+                    html+='<td>'+data[i].sid+'</td>';
+                    html+='<td>'+data[i].stuid+'</td>';
+                    html+='<td>'+data[i].cid+'</td>';
+                    html+='<td>'+data[i].score+'</td>';
+                    html+='<td>'+data[i].createtime+'</td>';
+                    var state;
+                    if (data[i].state == 0){
+                        state =  "<span class=\"label label-info\">正常</span>"
+                    }else {
+                        state =  "<span class=\"label label-warning\">禁用</span>"
+                    }
+                    html+='<td>'+state+'</td>';
+                    html+='<td> <a href="edit.html?sid='+data[i].sid+'" class="btn btn-success">修改</a>&nbsp;';
+                    html+='<a href="deleteBySId/?sid='+data[i].sid+'" class="btn btn-danger">删除</a></td>';
+                    html+='</tr>';
+                }
+                $("#resdata").html(html)
+            }
+        });
+    })
+</script>
+</html>

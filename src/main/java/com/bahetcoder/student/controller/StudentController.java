@@ -1,7 +1,10 @@
 package com.bahetcoder.student.controller;
 
+import com.alibaba.excel.EasyExcel;
 import com.bahetcoder.student.entity.StudentEntity;
+import com.bahetcoder.student.listener.StudentListener;
 import com.bahetcoder.student.service.StudentService;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -84,4 +87,11 @@ public class StudentController {
         studentService.updateStudentBySid(studentEntity);
         return "修改成功！";
     }
+
+    @Test
+    public  void simpleRead(){
+        // 这里 需要指定读用哪个class去读，然后读取第一个sheet 文件流会自动关闭
+        EasyExcel.read("student.xlsx", StudentEntity.class, new StudentListener()).sheet().doRead();
+    }
+
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bahetcoder.score.dao.ScoreDao">
+    <!--查询课程所有的信息-->
+    <select id="selectAll" resultType="com.bahetcoder.score.entity.ScoreEntity" parameterType="java.util.Map">
+        select * from score
+    </select>
+    <!--根据cid删除课程所有的信息-->
+    <delete id="deleteBySId" parameterType="java.lang.Integer">
+        delete from score where sid = ${sid}
+    </delete>
+    <!-- 新增课程信息 -->
+    <insert id="saveScore" parameterType="com.bahetcoder.score.entity.ScoreEntity">
+        INSERT INTO score (
+            sid,
+            stuid,
+            cid,
+            score,
+            createtime,
+            state
+        )
+        VALUES
+        (
+            NULL,
+            #{stuid},
+            #{cid},
+            #{score},
+            #{createtime},
+            #{state}
+        )
+    </insert>
+    <!--根据cid查询课程所有的信息-->
+    <select id="selectBySId" resultType="com.bahetcoder.score.entity.ScoreEntity" parameterType="java.lang.Integer">
+        select * from score where sid = ${sid}
+    </select>
+    <!--根据cid修改课程信息-->
+    <update id="updateBySId" parameterType="com.bahetcoder.score.entity.ScoreEntity">
+        UPDATE score
+        SET stuid = #{stuid},
+            cid = #{cid},
+            score = #{score}
+        WHERE
+            sid = ${sid}
+    </update>
+
+</mapper>
