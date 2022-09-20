@@ -49,5 +49,9 @@ public class MasterBranchTest2 {
         List<String> list4 = new LinkedList<>();
         list4.add("1");
         list4.add("2");
+
+        //测试文件修改，5分钟内找出来！！！
+        System.out.println("文件改变了！！！");
+
     }
 }
