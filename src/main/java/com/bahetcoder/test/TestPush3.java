@@ -6,4 +6,8 @@ package com.bahetcoder.test;
  * @discription 对类的描述
  */
 public class TestPush3 {
+    public static void main(String[] args) {
+        //啥也不修改，只添加一行内容
+        System.out.println("hello world");
+    }
 }
