@@ -44,12 +44,16 @@ public class MapTest {
         map3.put("e", 5);
         map3.put("f", 6);
         System.out.println(map3);
+        // 方案一
         for (Map.Entry<String, Integer> entry : map3.entrySet()) {
             System.out.print("key值是：" + entry.getKey() +" ");
             System.out.print("value值是：" + entry.getValue());
             System.out.println();
         }
         Map.Entry<String, Integer> entry;
+
+        // 方案二
+        map3.forEach((k, v) -> System.out.println(k + " = " + v));
 
         System.out.println("hhh");
     }
