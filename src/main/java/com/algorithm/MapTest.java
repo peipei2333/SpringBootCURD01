@@ -1,7 +1,9 @@
 package com.algorithm;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author peipei
@@ -46,15 +48,50 @@ public class MapTest {
         System.out.println(map3);
         // 方案一
         for (Map.Entry<String, Integer> entry : map3.entrySet()) {
+            System.out.println("每个entry内容是：" + entry);
             System.out.print("key值是：" + entry.getKey() +" ");
             System.out.print("value值是：" + entry.getValue());
             System.out.println();
         }
+        System.out.println("map3.entrySet()内容是：" + map3.entrySet());
         Map.Entry<String, Integer> entry;
 
         // 方案二
         map3.forEach((k, v) -> System.out.println(k + " = " + v));
 
         System.out.println("hhh");
+
+        System.out.println("分界线=============");
+        System.out.println(map3.keySet());
+        System.out.println(map3.keySet().size());
+        map3.keySet();
+        Set<String> set = new HashSet<>();
+        set.add("1");
+        set.add("2");
+        set.add("3");
+        set.add("4");
+        set.add("5");
+        System.out.println(set);
+
+        System.out.println();
+
+        System.out.println("分割线=================");
+        Map<String, Object> map4 = new HashMap<>();
+        map4.put("1", 1);
+        map4.put("2", 2);
+        map4.put("3", 3);
+        map4.put("4", 4);
+        map4.put("5", 5);
+        map4.put("6", 6);
+        for (Map.Entry<String, Object> entry2 : map4.entrySet()) {
+            System.out.print("entry2的值是" + entry2.getKey() + " ");
+            System.out.print("entry2的键是" + entry2.getValue());
+            System.out.println();
+        }
+
+        // 重新遍历map4
+        for (Map.Entry<String, Object> entry2 : map4.entrySet()) {
+            System.out.println(entry2.getKey() + " " + entry2.getValue());
+        }
     }
 }
