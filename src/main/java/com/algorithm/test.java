@@ -37,8 +37,8 @@ public class test {
          * 正常排序，map怎么排序？
          *
          */
-        
 
+        System.out.println("用来测试ctrl + D的效果");
 
     }
 }
